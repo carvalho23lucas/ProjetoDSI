@@ -76,23 +76,10 @@ public class Client {
 			}
 			
 			Registry reg = LocateRegistry.getRegistry("localhost");
-			String reference = ((IDnsServer)reg.lookup("dnsserver")).getReference(args[1]);
-			
-			if (reference.equals("")){
-				System.out.println("404 Not Found: servidor '" + args[1] + "' não encontrado.");
-				return;
-			}
-
-			try {
-				reg = LocateRegistry.getRegistry("localhost");
-				currentRepository = (IPartRepository)reg.lookup(reference);
-			}
-			catch (ConnectException | NotBoundException e){
-				System.out.println("500 Internal Server Error: falha na conexão com o servidor.");
-			}
+			currentRepository = (IPartRepository)reg.lookup(args[1]);
 		}
 		catch (ConnectException | NotBoundException e){
-			System.out.println("500 Internal Server Error: servidor DNS não encontrado.");
+			System.out.println("500 Internal Server Error: falha na conexão com o servidor.");
 		}
 	}
 	
