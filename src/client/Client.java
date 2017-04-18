@@ -26,37 +26,19 @@ public class Client {
 				String[] args = command.split(" "); 
 				
 				switch(args[0].toUpperCase()){
-				
-//					• interaja com o repositório implementado pelo servidor:					-
-//					– examinando o nome do repositório e o numero de peças nele contidas,		void SHOW-REP-INFO () 
-//					– listando as peças no repositório,											void LIST-REP-PARTS ()
-//					– buscando uma peça (por código de peça) no repositório,					IPart GET-PART (int)
-//					– adicionando ao repositório novas peças (primitivas ou agregadas);			void ADD-PART ()
-//					• tendo uma referência a uma peça, referência essa previamente obtida		-
-//					– examinando o nome e a descrição da peça,									void SHOW-PART-INFO ()
-//					– obtendo o (nome do) repositório que a contém,								void SHOW-PART-REP ()
-//					– verificando se a peça é primitiva ou agregada,							void SHOW-PART-TYPE ()
-//					– obtendo o número de subcomponentes diretos e primitivos da peça,			void SHOW-PART-SUBPARTS-COUNT ()
-//					– listando suas subpeças.													void SHOW-PART-SUBPARTS ()
-//																						OUTROS:
-//																								void CLEAR-LIST ()
-//																								void ADD-AS-SUBPART ()
-//																								void QUIT ()
-				
-				
-					case "BIND":
-						bind(args);
-						break;
-					case "SHOW-REP-INFO":
-						//showRepInfo();
-						break;
-						
-					case "asds":
-						break;
-						
-					case "asdd":
-						break;
-						
+					case "BIND": 						bind(args); 				break;
+					case "SHOW-REP-INFO":				showRepInfo();				break;
+					case "LIST-REP-PARTS":				listRepParts();				break;
+					case "GET-PART":					getPart(args);				break;
+					case "ADD-PART":					addPart(args);				break;
+					case "SHOW-PART-INFO":				showPartInfo();				break;
+					case "SHOW-PART-REP":				showPartRep();				break;
+					case "SHOW-PART-TYPE":				showPartType();				break;
+					case "SHOW-PART-SUBPARTS-COUNT":	showPartSubpartsCount();	break;
+					case "SHOW-PART-SUBPARTS":			showPartSubparts();			break;
+					case "CLEAR-LIST":					clearList();				break;
+					case "ADD-AS-SUBPART":				addAsSubpart();				break;
+					case "QUIT":						quit();						break;
 					default:
 						System.out.println("Comando não reconhecido");
 						break;
@@ -70,95 +52,72 @@ public class Client {
 	
 	public void bind(String[] args) throws RemoteException {
 		try {
-			if (args.length == 1){
-				System.out.println("400 Bad Request: comando 'bind' requer um parâmetro. Usar 'bind servername'.");
-				return;
-			}
-			
 			Registry reg = LocateRegistry.getRegistry("localhost");
 			currentRepository = (IPartRepository)reg.lookup(args[1]);
 		}
 		catch (ConnectException | NotBoundException e){
 			System.out.println("500 Internal Server Error: falha na conexão com o servidor.");
 		}
-	}
-	
-	/*public void showRepInfo() throws RemoteException {
-		try {
-			System.out.println(currentRepository.);
-		}
-		catch (NotBoundException e){
-			System.out.println("500 Internal Server Error: falha na conexão com o servidor.");
+		catch (ArrayIndexOutOfBoundsException e){
+			System.out.println("400 Bad Request: comando 'bind' requer um parâmetro. Usar 'bind servername'.");
 		}
 	}
-	
-	public void method() throws RemoteException {
-		try {
-			if (1 > 2){
-				System.out.println("400 Bad Request: comando 'bind' requer um parâmetro. Usar 'bind servername'.");
-				return;
-			}
-			
-			
-		}
-		catch (NotBoundException e){
-			System.out.println("500 Internal Server Error: falha na conexão com o servidor.");
-		}
+	public void showRepInfo() throws RemoteException {
+		// usa currentRepository
+		// print info
+		// trycatch
 	}
-	
-	public void method() throws RemoteException {
-		try {
-			if (1 > 2){
-				System.out.println("400 Bad Request: comando 'bind' requer um parâmetro. Usar 'bind servername'.");
-				return;
-			}
-			
-			
-		}
-		catch (NotBoundException e){
-			System.out.println("500 Internal Server Error: falha na conexão com o servidor.");
-		}
+	public void listRepParts() throws RemoteException {
+		// usa currentRepository
+		// print info
+		// trycatch
 	}
-	
-	public void method() throws RemoteException {
-		try {
-			if (1 > 2){
-				System.out.println("400 Bad Request: comando 'bind' requer um parâmetro. Usar 'bind servername'.");
-				return;
-			}
-			
-			
-		}
-		catch (NotBoundException e){
-			System.out.println("500 Internal Server Error: falha na conexão com o servidor.");
-		}
+	public void getPart(String[] args) throws RemoteException {
+		// usa currentRepository
+		// atribui currentPart
+		// trycatch
 	}
-	
-	public void method() throws RemoteException {
-		try {
-			if (1 > 2){
-				System.out.println("400 Bad Request: comando 'bind' requer um parâmetro. Usar 'bind servername'.");
-				return;
-			}
-			
-			
-		}
-		catch (NotBoundException e){
-			System.out.println("500 Internal Server Error: falha na conexão com o servidor.");
-		}
+	public void addPart(String[] args) throws RemoteException {
+		// usa currentRepository
+		// usa currentPart
+		// usa currentSubpartList
+		// trycatch
 	}
-	
-	public void method() throws RemoteException {
-		try {
-			if (1 > 2){
-				System.out.println("400 Bad Request: comando 'bind' requer um parâmetro. Usar 'bind servername'.");
-				return;
-			}
-			
-			
-		}
-		catch (NotBoundException e){
-			System.out.println("500 Internal Server Error: falha na conexão com o servidor.");
-		}
-	}*/
+	public void showPartInfo() throws RemoteException {
+		// usa currentPart
+		// print info
+		// trycatch
+	}
+	public void showPartRep() throws RemoteException {
+		// usa currentPart
+		// print info
+		// trycatch
+	}
+	public void showPartType() throws RemoteException {
+		// usa currentPart
+		// print info
+		// trycatch
+	}
+	public void showPartSubpartsCount() throws RemoteException {
+		// usa currentPart
+		// print info
+		// trycatch
+	}
+	public void showPartSubparts() throws RemoteException {
+		// usa currentPart
+		// print info
+		// trycatch
+	}
+	public void clearList() throws RemoteException {
+		// atribui currentSubpartList
+		// trycatch
+	}
+	public void addAsSubpart() throws RemoteException {
+		// usa currentPart
+		// atribui currentSubpartList
+		// trycatch
+	}
+	public void quit() {
+		System.exit(0);
+	}
 }

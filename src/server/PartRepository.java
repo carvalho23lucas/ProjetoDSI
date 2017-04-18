@@ -18,28 +18,23 @@ public class PartRepository extends UnicastRemoteObject implements IPartReposito
 	
 	@Override
 	public String getRepInfo() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		return "Name: " + name + "\r\nParts:" + parts.size();
 	}
-
 	@Override
 	public List<IPart> listRepParts() throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
 	public IPart getPart(int partId) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
 	public List<IPart> getPartSubparts(IPart part) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
 	public void addPart(IPart part, List<IPart> subparts) throws RemoteException {
 		//TODO Auto-generated method stub
