@@ -15,11 +15,11 @@ public class Client {
 	LinkedList<IPart> currentSubpartList;
 	
 	public static void main(String[] args) {
-		Client c = new Client();
-		c.startClient();
+		new Client().startClient();
 	}
 	public void startClient() {
 		try (Scanner sc = new Scanner(System.in)) {
+			System.out.println("Cliente ativado. Aguardando comandos...");
 			while (true){
 				String command = sc.nextLine();
 				if (command.equals("")) continue;
@@ -54,18 +54,25 @@ public class Client {
 		try {
 			Registry reg = LocateRegistry.getRegistry("localhost");
 			currentRepository = (IPartRepository)reg.lookup(args[1]);
+			System.out.println("OK: conectado com sucesso.");
 		}
-		catch (ConnectException | NotBoundException e){
-			System.out.println("500 Internal Server Error: falha na conexão com o servidor.");
+		catch (ConnectException e){
+			System.out.println("SERVER ERROR: falha na conexão com o servidor.");
+		}
+		catch (NotBoundException e){
+			System.out.println("CLIENT ERROR: não há um servidor com este nome.");
 		}
 		catch (ArrayIndexOutOfBoundsException e){
-			System.out.println("400 Bad Request: comando 'bind' requer um parâmetro. Usar 'bind servername'.");
+			System.out.println("CLIENT ERROR: comando 'bind' requer um parâmetro. Usar 'bind servername'.");
 		}
 	}
 	public void showRepInfo() throws RemoteException {
-		// usa currentRepository
-		// print info
-		// trycatch
+		try {
+			System.out.println(currentRepository.getRepInfo());
+		}
+		catch (NullPointerException e){
+			System.out.println("CLIENT ERROR: É necessário se conectar a um servidor. Usar 'bind servername'.");
+		}
 	}
 	public void listRepParts() throws RemoteException {
 		// usa currentRepository
