@@ -125,6 +125,7 @@ public class Client {
 		// trycatch
 	}
 	public void quit() {
+		System.out.println("Finalizando...");
 		System.exit(0);
 	}
 }
