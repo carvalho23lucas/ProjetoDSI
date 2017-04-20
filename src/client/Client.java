@@ -6,13 +6,14 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Client {
 	
 	IPartRepository currentRepository;
 	IPart currentPart;
-	LinkedList<IPart> currentSubpartList;
+	List<IPart> currentSubpartList = new LinkedList<IPart>();
 	
 	public static void main(String[] args) {
 		new Client().startClient();
@@ -75,9 +76,12 @@ public class Client {
 		}
 	}
 	public void listRepParts() throws RemoteException {
-		// usa currentRepository
-		// print info
-		// trycatch
+		try {
+			System.out.println(currentRepository.listRepParts());
+		}
+		catch (NullPointerException e){
+			System.out.println("CLIENT ERROR: É necessário se conectar a um servidor. Usar 'bind servername'.");
+		}
 	}
 	public void getPart(String[] args) throws RemoteException {
 		// usa currentRepository
@@ -85,10 +89,19 @@ public class Client {
 		// trycatch
 	}
 	public void addPart(String[] args) throws RemoteException {
-		// usa currentRepository
-		// usa currentPart
-		// usa currentSubpartList
-		// trycatch
+		try {
+			currentRepository.addPart(Integer.parseInt(args[1]), args[2], args[3], currentSubpartList);
+			System.out.println("Adicionado com sucesso.");
+		}
+		catch (NullPointerException e){
+			System.out.println("CLIENT ERROR: É necessário se conectar a um servidor. Usar 'bind nomedoserver'.");
+		}
+		catch (NumberFormatException e){
+			System.out.println("CLIENT ERROR: Use um número inteiro para o código.");
+		}
+		catch (ArrayIndexOutOfBoundsException e){
+			System.out.println("CLIENT ERROR: comando 'add-part' requer três parâmetros. Usar 'add-part código nome descrição'.");
+		}
 	}
 	public void showPartInfo() throws RemoteException {
 		// usa currentPart

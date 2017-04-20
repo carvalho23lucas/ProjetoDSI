@@ -38,13 +38,14 @@ public class Part extends UnicastRemoteObject implements IPart {
 		return (List<IPart>)(List<?>)subparts;
 	}
 	
-	protected Part(String repository, int cod, String name, String description, List<Part> subparts) throws RemoteException {
+	@SuppressWarnings("unchecked")
+	protected Part(String repository, int cod, String name, String description, List<IPart> subparts) throws RemoteException {
 		super();
 		this.repository = repository;
 		this.cod = cod;
 		this.name = name;
 		this.description = description;
-		this.subparts = subparts;
+		this.subparts = (List<Part>)(List<?>)subparts;
 	}
 	private static final long serialVersionUID = 1L;
 }

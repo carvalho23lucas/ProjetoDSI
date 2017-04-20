@@ -19,12 +19,23 @@ public class PartRepository extends UnicastRemoteObject implements IPartReposito
 	
 	@Override
 	public String getRepInfo() throws RemoteException {
-		return "Name: " + name + "\r\nParts: " + parts.size();
+		return "Nome: " + name + "\r\nPartes: " + parts.size();
 	}
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<IPart> listRepParts() throws RemoteException {
-		return (List<IPart>)(List<?>)parts;
+	public String listRepParts() throws RemoteException {
+		String result = "";
+		for(Part part : this.parts){
+			result +=   "Código: " + part.cod + "\r\n" +
+						"Nome: " + part.name + "\r\n" + 
+						"Descrição: " + part.description + "\r\n" + 
+						"Sub-Partes: " + part.subparts.size() + "\r\n";
+		}
+		if(result == ""){
+			return "Servidor sem partes";
+		}
+		else{
+			return result;
+		}
 	}
 	@Override
 	public IPart getPart(int partCod) throws RemoteException {
@@ -35,14 +46,14 @@ public class PartRepository extends UnicastRemoteObject implements IPartReposito
 		return null;
 	}
 	@Override
-	public List<IPart> getPartSubparts(IPart part) throws RemoteException {
+	public String getPartSubparts(IPart part) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public void addPart(IPart part, List<IPart> subparts) throws RemoteException {
-		//TODO Auto-generated method stub
-		
+	public void addPart(int cod, String name, String description, List<IPart> subparts) throws RemoteException {
+		Part part = new Part(this.name, cod, name, description, subparts);
+		parts.add(part);
 	}
 	
 	public static void main(String[] args) {
