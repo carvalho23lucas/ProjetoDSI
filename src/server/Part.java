@@ -2,8 +2,8 @@ package server;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import client.IPart;
 
@@ -12,13 +12,20 @@ public class Part extends UnicastRemoteObject implements IPart {
 	int cod;
 	String name;
 	String description;
-	List<Part> subparts = new LinkedList<Part>();
+	Map<IPart, Integer> subparts = new HashMap<IPart, Integer>();
+
+	protected Part(String repository, int cod, String name, String description, Map<IPart, Integer> subparts) throws RemoteException {
+		super();
+		this.repository = repository;
+		this.cod = cod;
+		this.name = name;
+		this.description = description;
+		this.subparts = subparts;
+	}
 	
 	@Override
 	public String getPartInfo() throws RemoteException {
-		return 	"Código: " + cod + "\r\n" +
-				"Nome: " + name + "\r\n" +
-				"Descrição: " + description;
+		return this.toMyString();
 	}
 	@Override
 	public String getPartType() throws RemoteException {
@@ -34,29 +41,32 @@ public class Part extends UnicastRemoteObject implements IPart {
 	}
 	@Override
 	public String getSubparts() throws RemoteException {
-		String result = "";
-		for(Part part : this.subparts){
-			result +=   "Código: " + part.cod + "\r\n" +
-						"Nome: " + part.name + "\r\n" + 
-						"Descrição: " + part.description + "\r\n" + 
-						"Sub-Partes: " + part.subparts.size() + "\r\n";
-		}
-		if(result == ""){
-			return "Parte sem sub-partes";
-		}
-		else{
-			return result;
-		}
+		StringBuilder result = new StringBuilder();
+		subparts.forEach((x,y) -> 
+			{
+				try {
+					result.append("("+ y + "un) [" + x.toMyString() + "]\r\n");
+				} catch (RemoteException e) {}
+			}
+		);
+		return result.toString() == "" ? "Parte sem sub-partes" : result.toString();
 	}
 	
-	@SuppressWarnings("unchecked")
-	protected Part(String repository, int cod, String name, String description, List<IPart> subparts) throws RemoteException {
-		super();
-		this.repository = repository;
-		this.cod = cod;
-		this.name = name;
-		this.description = description;
-		this.subparts = (List<Part>)(List<?>)subparts;
+	public boolean equals(Object obj) {
+		if (obj instanceof Part)
+			return ((Part)obj).cod == this.cod;
+		return false;
+	}
+	@Override
+	public String toMyString() throws RemoteException {
+		return  "Server: " + this.repository + "; " +
+				"Código: " + this.cod + "; " +
+				"Nome: " + this.name + "; " + 
+				"Descrição: " + this.description + "; " + 
+				"Sub-Partes: " + this.subparts.size();
+	}
+	public int hashCode() {
+		return cod;
 	}
 	private static final long serialVersionUID = 1L;
 }

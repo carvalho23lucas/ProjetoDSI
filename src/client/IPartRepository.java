@@ -2,12 +2,11 @@ package client;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.List;
+import java.util.Map;
 
 public interface IPartRepository extends Remote {
 	public String getRepInfo() throws RemoteException;
 	public String listRepParts() throws RemoteException;
-	public IPart getPart(int partId) throws RemoteException;
-	public String getPartSubparts(IPart part) throws RemoteException;
-	public void addPart(int cod, String name, String description, List<IPart> subparts) throws RemoteException;
+	public IPart getPart(int cod) throws RemoteException;
+	public int addPart(String name, String description, Map<IPart, Integer> subparts) throws RemoteException;
 }

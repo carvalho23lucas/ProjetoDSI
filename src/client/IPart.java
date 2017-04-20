@@ -9,4 +9,5 @@ public interface IPart extends Remote {
 	public String getPartRep() throws RemoteException;
 	public int getSubpartsCount() throws RemoteException;
 	public String getSubparts() throws RemoteException;
+	public String toMyString() throws RemoteException;
 }
