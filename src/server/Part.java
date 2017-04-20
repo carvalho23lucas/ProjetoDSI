@@ -32,10 +32,21 @@ public class Part extends UnicastRemoteObject implements IPart {
 	public int getSubpartsCount() throws RemoteException {
 		return subparts.size();
 	}
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<IPart> getSubparts() throws RemoteException {
-		return (List<IPart>)(List<?>)subparts;
+	public String getSubparts() throws RemoteException {
+		String result = "";
+		for(Part part : this.subparts){
+			result +=   "Código: " + part.cod + "\r\n" +
+						"Nome: " + part.name + "\r\n" + 
+						"Descrição: " + part.description + "\r\n" + 
+						"Sub-Partes: " + part.subparts.size() + "\r\n";
+		}
+		if(result == ""){
+			return "Parte sem sub-partes";
+		}
+		else{
+			return result;
+		}
 	}
 	
 	@SuppressWarnings("unchecked")

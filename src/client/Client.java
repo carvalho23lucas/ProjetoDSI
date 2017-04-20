@@ -84,9 +84,24 @@ public class Client {
 		}
 	}
 	public void getPart(String[] args) throws RemoteException {
-		// usa currentRepository
-		// atribui currentPart
-		// trycatch
+		try {
+			currentPart = currentRepository.getPart(Integer.parseInt(args[1]));
+			if(currentPart == null){
+				System.out.println("Parte não encontrada.");	
+			}
+			else{
+				System.out.println("Parte encontrada.");				
+			}
+		}
+		catch (NullPointerException e){
+			System.out.println("CLIENT ERROR: É necessário se conectar a um servidor. Usar 'bind servername'.");
+		}
+		catch (NumberFormatException e){
+			System.out.println("CLIENT ERROR: Use um número inteiro para o código.");
+		}
+		catch (ArrayIndexOutOfBoundsException e){
+			System.out.println("CLIENT ERROR: comando 'get-part' requer um parâmetro. Usar 'get-part código'.");
+		}
 	}
 	public void addPart(String[] args) throws RemoteException {
 		try {
@@ -104,38 +119,52 @@ public class Client {
 		}
 	}
 	public void showPartInfo() throws RemoteException {
-		// usa currentPart
-		// print info
-		// trycatch
+		try {
+			System.out.println(currentPart.getPartInfo());
+		}
+		catch (NullPointerException e){
+			System.out.println("CLIENT ERROR: É necessário selecionar uma parte. Usar 'get-part nomedaparte'.");
+		}
 	}
 	public void showPartRep() throws RemoteException {
-		// usa currentPart
-		// print info
-		// trycatch
+		try {
+			System.out.println(currentPart.getPartRep());
+		}
+		catch (NullPointerException e){
+			System.out.println("CLIENT ERROR: É necessário selecionar uma parte. Usar 'get-part nomedaparte'.");
+		}
 	}
 	public void showPartType() throws RemoteException {
-		// usa currentPart
-		// print info
-		// trycatch
+		try {
+			System.out.println(currentPart.getPartType());
+		}
+		catch (NullPointerException e){
+			System.out.println("CLIENT ERROR: É necessário selecionar uma parte. Usar 'get-part nomedaparte'.");
+		}
 	}
 	public void showPartSubpartsCount() throws RemoteException {
-		// usa currentPart
-		// print info
-		// trycatch
+		try {
+			System.out.println(currentPart.getSubpartsCount());
+		}
+		catch (NullPointerException e){
+			System.out.println("CLIENT ERROR: É necessário selecionar uma parte. Usar 'get-part nomedaparte'.");
+		}
 	}
 	public void showPartSubparts() throws RemoteException {
-		// usa currentPart
-		// print info
-		// trycatch
+		try {
+			System.out.println(currentPart.getSubparts());
+		}
+		catch (NullPointerException e){
+			System.out.println("CLIENT ERROR: É necessário selecionar uma parte. Usar 'get-part nomedaparte'.");
+		}
 	}
 	public void clearList() throws RemoteException {
-		// atribui currentSubpartList
-		// trycatch
+		currentSubpartList.clear();
+		System.out.println("Lista apagada com sucesso.");
 	}
 	public void addAsSubpart() throws RemoteException {
-		// usa currentPart
-		// atribui currentSubpartList
-		// trycatch
+		currentSubpartList.add(currentPart);
+		System.out.println("Parte adicionada à lista de subpartes.");
 	}
 	public void quit() {
 		System.out.println("Finalizando...");
