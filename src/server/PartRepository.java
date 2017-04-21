@@ -1,9 +1,9 @@
 package server;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.ExportException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,13 +24,8 @@ public class PartRepository extends UnicastRemoteObject implements IPartReposito
 
 	public static void main(String[] args) {
 		try (Scanner sc = new Scanner(System.in)) {
-			Registry reg = null;
-			try {
-				reg = LocateRegistry.createRegistry(1099);
-			}
-			catch (ExportException e) { 
-				reg = LocateRegistry.getRegistry();
-			}
+			Runtime.getRuntime().exec("rmiregistry");
+			Registry reg = LocateRegistry.getRegistry();
 			
 			System.out.println("Escolha um nome para o servidor.");
 			String name;
@@ -55,7 +50,7 @@ public class PartRepository extends UnicastRemoteObject implements IPartReposito
 			reg.rebind(name, new PartRepository(name));
 			System.out.println("Servidor ativado com sucesso...");
 		}
-		catch (RemoteException e) {
+		catch (IOException e) {
 			System.out.println(e);
 		}
 	}

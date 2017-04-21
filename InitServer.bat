@@ -1,4 +1,5 @@
 @@echo off
 echo Iniciando...
-java -cp bin server.PartRepository
+cd bin
+java server.PartRepository
 pause

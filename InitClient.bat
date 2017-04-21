@@ -1,3 +1,4 @@
 @@echo off
-java -cp bin client.Client
+cd bin
+java client.Client
 pause
