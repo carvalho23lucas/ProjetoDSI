@@ -102,7 +102,7 @@ public class Client {
 				"CLIENT ERROR: comando 'get-part' requer um parâmetro. " +
 				"Usar 'get-part código'.");
 		if (!args[1].matches("^[0-9]+$")) throw new NumberFormatException(
-				"CLIENT ERROR: Use um número inteiro para a quantidade.");
+				"CLIENT ERROR: Use um número inteiro para o código.");
 		
 		IPart part = currentRepository.getPart(Integer.parseInt(args[1]));
 		if (part == null)
