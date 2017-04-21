@@ -1,4 +1,3 @@
 @@echo off
-cd src
-java server.PartRepository
+java -cp bin server.PartRepository
 pause

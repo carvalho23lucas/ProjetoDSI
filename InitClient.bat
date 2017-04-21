@@ -1,4 +1,3 @@
 @@echo off
-cd src
-java client.Client
+java -cp bin client.Client
 pause

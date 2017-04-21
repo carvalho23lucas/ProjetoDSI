@@ -46,6 +46,9 @@ public class Client {
 							break;
 					}
 				}
+				catch (ConnectException e){
+					System.out.println("SERVER ERROR: falha na conexão com o servidor.");
+				}
 				catch (RemoteException e) {
 					System.out.println(e);
 				}
@@ -58,9 +61,6 @@ public class Client {
 			Registry reg = LocateRegistry.getRegistry("localhost");
 			currentRepository = (IPartRepository)reg.lookup(args[1]);
 			System.out.println("Conectado com sucesso.");
-		}
-		catch (ConnectException e){
-			System.out.println("SERVER ERROR: falha na conexão com o servidor.");
 		}
 		catch (NotBoundException e){
 			System.out.println("CLIENT ERROR: não há um servidor com este nome.");
