@@ -1,6 +1,8 @@
 package server;
 
 import java.io.IOException;
+import java.rmi.ConnectException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -39,9 +41,15 @@ public class PartRepository extends UnicastRemoteObject implements IPartReposito
 				else{
 					for (String str : reg.list()){
 						if (str.equals(name)){
-							System.out.println("Já existe um servidor com este nome.");
-							name = "";
-							break;
+							try {
+								String rep = ((IPartRepository)reg.lookup(name)).getRepInfo();
+								System.out.println("Já existe um servidor com este nome:\r\n" + rep);
+								name = "";
+								break;
+							}
+							catch (ConnectException | NotBoundException e) {
+								break; // Servidor já foi registrado, mas não esta online. Deve-se recriá-lo.
+							}
 						}
 					}
 				}
