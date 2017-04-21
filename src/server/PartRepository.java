@@ -23,7 +23,6 @@ public class PartRepository extends UnicastRemoteObject implements IPartReposito
 	}
 
 	public static void main(String[] args) {
-		System.out.print("Iniciando... ");
 		try (Scanner sc = new Scanner(System.in)) {
 			Registry reg = null;
 			try {
