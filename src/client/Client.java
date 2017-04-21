@@ -63,6 +63,9 @@ public class Client {
 				catch (ArrayIndexOutOfBoundsException e){
 					System.out.println(e.getMessage());
 				}
+				catch (InvalidParameterException e){
+					System.out.println(e.getMessage());
+				}
 				catch (ConnectException e){
 					System.out.println("SERVER ERROR: falha na conexão com o servidor.");
 				}
