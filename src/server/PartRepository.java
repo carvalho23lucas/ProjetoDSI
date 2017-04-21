@@ -23,6 +23,7 @@ public class PartRepository extends UnicastRemoteObject implements IPartReposito
 	}
 
 	public static void main(String[] args) {
+		System.out.print("Iniciando... ");
 		try (Scanner sc = new Scanner(System.in)) {
 			Registry reg = null;
 			try {
@@ -70,7 +71,7 @@ public class PartRepository extends UnicastRemoteObject implements IPartReposito
 		for(Part part : this.parts){
 			result += part.toMyString() + "\r\n";
 		}
-		return result == "" ? "Servidor sem partes" : result;
+		return result == "" ? "Servidor sem partes\r\n" : result;
 	}
 	@Override
 	public IPart getPart(int cod) throws RemoteException {

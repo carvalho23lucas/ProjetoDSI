@@ -19,35 +19,37 @@ public class Client {
 		new Client().startClient();
 	}
 	public void startClient() {
+		System.out.println("Cliente ativado. Aguardando comandos...");
 		try (Scanner sc = new Scanner(System.in)) {
-			System.out.println("Cliente ativado. Aguardando comandos...");
 			while (true){
-				String command = sc.nextLine();
-				if (command.equals("")) continue;
-				String[] args = command.split(" "); 
-				
-				switch(args[0].toUpperCase()){
-					case "BIND": 						bind(args); 				break;
-					case "SHOW-REP-INFO":				showRepInfo();				break;
-					case "SHOW-REP-PARTS":				showRepParts();				break;
-					case "GET-PART":					getPart(args);				break;
-					case "ADD-PART":					addPart(command);			break;
-					case "SHOW-PART-INFO":				showPartInfo();				break;
-					case "SHOW-PART-REP":				showPartRep();				break;
-					case "SHOW-PART-TYPE":				showPartType();				break;
-					case "SHOW-PART-SUBPARTS-COUNT":	showPartSubpartsCount();	break;
-					case "SHOW-PART-SUBPARTS":			showPartSubparts();			break;
-					case "CLEAR-LIST":					clearList();				break;
-					case "ADD-AS-SUBPART":				addAsSubpart(args);			break;
-					case "QUIT":						quit();						break;
-					default:
-						System.out.println("Comando não reconhecido");
-						break;
+				try {
+					String command = sc.nextLine();
+					if (command.equals("")) continue;
+					String[] args = command.split(" "); 
+					
+					switch(args[0].toUpperCase()){
+						case "BIND": 						bind(args); 				break;
+						case "SHOW-REP-INFO":				showRepInfo();				break;
+						case "SHOW-REP-PARTS":				showRepParts();				break;
+						case "GET-PART":					getPart(args);				break;
+						case "ADD-PART":					addPart(command);			break;
+						case "SHOW-PART-INFO":				showPartInfo();				break;
+						case "SHOW-PART-REP":				showPartRep();				break;
+						case "SHOW-PART-TYPE":				showPartType();				break;
+						case "SHOW-PART-SUBPARTS-COUNT":	showPartSubpartsCount();	break;
+						case "SHOW-PART-SUBPARTS":			showPartSubparts();			break;
+						case "CLEAR-LIST":					clearList();				break;
+						case "ADD-AS-SUBPART":				addAsSubpart(args);			break;
+						case "QUIT":						quit();						break;
+						default:
+							System.out.println("Comando não reconhecido");
+							break;
+					}
+				}
+				catch (RemoteException e) {
+					System.out.println(e);
 				}
 			}
-		}
-		catch (RemoteException e) {
-			System.out.println(e);
 		}
 	}
 	//----------------------------------------------------------------------------------- bind (String[])
