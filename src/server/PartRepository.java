@@ -73,7 +73,7 @@ public class PartRepository extends UnicastRemoteObject implements IPartReposito
 		for(Part part : this.parts){
 			result += part.toMyString() + "\r\n";
 		}
-		return result == "" ? "Servidor sem partes\r\n" : result;
+		return result.equals("") ? "Servidor sem partes\r\n" : result;
 	}
 	@Override
 	public IPart getPart(int cod) throws RemoteException {

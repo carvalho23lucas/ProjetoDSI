@@ -49,7 +49,7 @@ public class Part extends UnicastRemoteObject implements IPart {
 				} catch (RemoteException e) {}
 			}
 		);
-		return result.toString() == "" ? "Parte sem sub-partes" : result.toString();
+		return result.toString().equals("") ? "Parte sem sub-partes" : result.toString();
 	}
 	
 	public boolean equals(Object obj) {
